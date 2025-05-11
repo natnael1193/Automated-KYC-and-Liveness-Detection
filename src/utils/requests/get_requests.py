@@ -1,4 +1,4 @@
-from sqlmodel import select
+from sqlmodel import select # type: ignore
 
 from src.config.db_config import sessions
 from src.utils.responses.responses import getResponse, notFoundResponse
