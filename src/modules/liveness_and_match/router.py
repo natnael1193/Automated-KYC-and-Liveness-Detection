@@ -39,18 +39,23 @@ async def verify_identity(selfie: UploadFile = File(...), id_card: UploadFile = 
         "is_match": match_score > 0.45,
         "liveness_verified": True
     }
-    img = cv2.imread(image_path)
-    
-    # Step 1: Detect
-    face_data = detector.detect_main_face(img)
-    if face_data["det_score"] < 0.6:
-        return "No clear face detected. Please try again."
 
-    # Step 2: Extract Bounding Box for Liveness
-    # (Pass the crop to our previously built AntiSpoofPredict)
+@liveness_router.post("/verify-with-ocr")
+async def verify_identity_with_ocr(selfie: UploadFile = File(...), id_card: UploadFile = File(...)):
+    # 1. Read files into OpenCV format
+    img_selfie = await read_img(selfie)
+    img_id = await read_img(id_card)
     
-    # Step 3: Get Embedding for Matching
-    # (The Matcher uses the same face_data to stay efficient)
-    embedding = matcher.get_embedding(img)
+    match_score, live_score, id_data, error = engine.process_verification(img_selfie, img_id)
     
-    return "Face Processed Successfully"
+    # Logic: It's only a full success if biometric matches AND ID is readable
+    is_success = (live_score > 0.85) and (match_score > 0.45) and (id_data['id_number'] != "Not Found")
+
+    return {
+        "verified": is_success,
+        "identity": id_data,
+        "scores": {
+            "biometric_match": round(match_score, 4),
+            "liveness": round(live_score, 4)
+        }
+    }
