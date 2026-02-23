@@ -8,7 +8,7 @@ from src.utils.security import authenticate_user, create_access_token, get_curre
 from datetime import timedelta
 from fastapi.security import OAuth2PasswordRequestForm
 
-app = FastAPI()
+app = FastAPI(title="Automated KYC and Liveness Detection", version="1.0.0", description="Automated KYC and Liveness Detection API")
 
 
 # Create the database and tables
