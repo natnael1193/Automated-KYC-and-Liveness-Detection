@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends, HTTPException  # type: ignore
+from fastapi import Depends, HTTPException, APIRouter   # type: ignore
 from fastapi.security import OAuth2PasswordRequestForm # type: ignore
 from src.modules.user.model import User
 from src.utils.router import router
@@ -8,7 +8,7 @@ from src.utils.responses.responses import messageResponse, loginResponse
 from datetime import datetime, timedelta
 
 # Define the router for user-related endpoints
-user_router = router
+user_router = APIRouter()
 
 
 @user_router.get("/users")

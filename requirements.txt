@@ -1,3 +1,9 @@
 fastapi
 sqlmodel
 pymysql
+opencv-python
+torch
+torchvision
+onnxruntime
+insightface
+numpy
