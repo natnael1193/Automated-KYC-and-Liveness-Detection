@@ -24,6 +24,6 @@ def read_root():
     return {"Hello": "World"}
 
 # Register the routers
-app.include_router(user_router, prefix="/api/v1/user", tags=["User"],)
+# app.include_router(user_router, prefix="/api/v1/user", tags=["User"],)
 app.include_router(liveness_router, prefix="/api/v1/liveness", tags=["Liveness"])
 
