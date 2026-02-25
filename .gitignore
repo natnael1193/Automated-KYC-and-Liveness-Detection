@@ -2,3 +2,5 @@
 ./.venv/*
 ./.env
 ./weights/*
+./weights/2.7_80x80_MiniFASNetV2.pth
+./weights/w600k_r50.onnx
