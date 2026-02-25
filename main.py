@@ -13,10 +13,10 @@ app = FastAPI(title="Automated KYC and Liveness Detection", version="1.0.0", des
 
 
 # Create the database and tables
-@app.on_event("startup")
-def on_startup():
-    create_db_and_tables()
-    create_user_table()
+# @app.on_event("startup")
+# def on_startup():
+#     create_db_and_tables()
+#     create_user_table()
     
 
 @app.get("/")
