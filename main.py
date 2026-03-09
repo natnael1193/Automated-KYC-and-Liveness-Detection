@@ -8,6 +8,7 @@ from src.utils.security import authenticate_user
 from src.utils.security import authenticate_user, create_access_token, get_current_user
 from datetime import timedelta
 from fastapi.security import OAuth2PasswordRequestForm
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(title="Automated KYC and Liveness Detection", version="1.0.0", description="Automated KYC and Liveness Detection API")
 
@@ -17,7 +18,16 @@ app = FastAPI(title="Automated KYC and Liveness Detection", version="1.0.0", des
 # def on_startup():
 #     create_db_and_tables()
 #     create_user_table()
-    
+
+
+# Allow all origins for development
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 def read_root():
